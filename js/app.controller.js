@@ -141,9 +141,11 @@ function onCopyUrl() {
 
 function renderWeather(weatherInfo) {
     console.log(weatherInfo);
+    debugger
+
     const strHtmls = `
     <h2 class="place">${weatherInfo.name + ' ' + weatherInfo.country}</h2>
-    <h4 class="temp">${weatherInfo.temp - - 273, 15} *</h4>
+    <h4 class="temp">Currently feels like: ${weatherInfo.temp} ℃</h4>
     `
     document.querySelector('.weather').innerHTML = strHtmls
 }
