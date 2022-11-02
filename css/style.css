@@ -6,17 +6,36 @@
     --mint-cream: #f6fff8ff;
 }
 
+
+/* Basics */
 body {
     margin: 0;
     height: 100vh;
+    color: var(--wintergreen-dream);
 }
 
+h1,h2,h3,h4,h5,h6{
+    margin: 0;
+    padding: 0;
+}
+
+button{
+    background-color: var(--mint-cream);
+    border: 1px solid var(--wintergreen-dream);
+    padding: 5px;
+    border-radius: 5px;
+}
+
+
+/* Layout */
 .main-layout {
     width: 100%;
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 75px 1fr;
 }
+
+/* Header */
 .main-layout .main-header {
     background-color: #a4c3b2ff;
     grid-column: span 2;
@@ -24,15 +43,29 @@ body {
     place-items: center;
 }
 
+/* Main section */
 .main-layout .main-section {
     display: grid;
     grid-template-columns: 1fr 1fr;
     padding: 20px;
     gap: 10px;
 }
+
+/* Map */
 .main-layout .main-section .map{
    order: 1;
 }
+
+/* Map controller */
 .main-layout .main-section .map-controller {
-    border: 1px solid var(--wintergreen-dream);
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    row-gap: 10px;
+}
+.main-section .map-controller .options{
+    border: 1px solid var(--cambridge-blue);
+    padding: 5px;
+}
+.main-section .map-controller .info{
+    border: 1px solid var(--cambridge-blue);
 }
