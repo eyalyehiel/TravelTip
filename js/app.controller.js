@@ -34,8 +34,12 @@ function renderLocs() {
             console.log('Locations:', locs)
             let strHtmls = locs.map(({ name, lat, lng }) => {
                 return `<div class="loc">
-                <h6 class="loc-name">${name}</h6>
-                <p><span class="lat">${lat.toString().substring(0,6)}</span> : <span class="lng">${lng.toString().substring(0,6)}</span></p>
+                <div>
+                <h4 class="loc-name">${name}</h4>
+                <p><span class="lat">${lat.toFixed(3)}</span> : <span class="lng">${lng.toFixed(3)}</span></p>
+                </div>
+                <button type="button">Go</button>
+                <button type="button">Delete</button>
             </div>`
             })
             document.querySelector('.locations').innerHTML = strHtmls.join('')
