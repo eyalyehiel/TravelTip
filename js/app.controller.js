@@ -6,6 +6,7 @@ window.onAddMarker = onAddMarker
 window.onPanTo = onPanTo
 window.onGetLocs = renderLocs
 window.onGetUserPos = onGetUserPos
+window.onSaveLoc = onSaveLoc
 
 function onInit() {
     mapService.initMap()
@@ -35,7 +36,7 @@ function renderLocs() {
             let strHtmls = locs.map(({ name, lat, lng }) => {
                 return `<div class="loc">
                 <h6 class="loc-name">${name}</h6>
-                <p><span class="lat">${lat.toString().substring(0,6)}</span> : <span class="lng">${lng.toString().substring(0,6)}</span></p>
+                <p><span class="lat">${lat.toString().substring(0, 6)}</span> : <span class="lng">${lng.toString().substring(0, 6)}</span></p>
             </div>`
             })
             document.querySelector('.locations').innerHTML = strHtmls.join('')
@@ -57,3 +58,11 @@ function onPanTo() {
     console.log('Panning the Map')
     mapService.panTo(35.6895, 139.6917)
 }
+
+function onSaveLoc(ev, elForm, lat, lng) {
+    ev.preventDefault()
+    const name = elForm.querySelector('input').value
+    locService.addLoc({ lat, lng }, name)
+}
+
+

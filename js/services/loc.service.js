@@ -17,16 +17,16 @@ function getLocs() {
     })
 }
 
-function addLoc(pos) {
+function addLoc(pos, name) {
     console.log('saving to locs');
     const { lat, lng } = pos
     const newLoc = {
-        name: 'Nice place for a zula',
+        name,
         lat,
         lng
     }
     locs.unshift(newLoc)
-    storageService.save(STORAGE_KEY,locs)
+    storageService.save(STORAGE_KEY, locs)
 }
 
 
