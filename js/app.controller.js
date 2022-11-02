@@ -8,13 +8,25 @@ window.onGetLocs = renderLocs
 window.onGetUserPos = onGetUserPos
 window.onSaveLoc = onSaveLoc
 window.onDeleteLoc = onDeleteLoc
+window.onPanToMyLoc =onPanToMyLoc
+window.onCopyUrl = onCopyUrl
 
 function onInit() {
     mapService.initMap()
         .then(() => {
             console.log('Map is ready')
         })
+        .then(()=>{
+            const urlSearchParams = new URLSearchParams(window.location.search);
+            const params = Object.fromEntries(urlSearchParams.entries());
+            console.log(params.lat,params.lng);
+            onPanTo(params.lat, params.lng)
+        })
         .catch(() => console.log('Error: cannot init map'))
+        // const urlSearchParams = new URLSearchParams(window.location.search);
+        // const params = Object.fromEntries(urlSearchParams.entries());
+        // console.log(params.lat,params.lng);
+        // onPanTo(params.lat, params.lng)
 }
 
 // This function provides a Promise API to the callback-based-api of getCurrentPosition
@@ -62,6 +74,10 @@ function onGetUserPos() {
 function onPanTo(lat, lng) {
     console.log('Panning the Map')
     mapService.panTo(+lat || 35.6895, +lng || 139.6917)
+
+    const queryStringParams = `?lat=${lat}&lng=${lng}`
+    const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + queryStringParams
+    window.history.pushState({ path: newUrl }, '', newUrl)
 }
 
 
@@ -74,5 +90,18 @@ function onSaveLoc(ev, elForm, lat, lng) {
     const name = elForm.querySelector('input').value
     locService.addLoc({ lat, lng }, name)
 }
+function onPanToMyLoc(){
+    getPosition()
+    .then(pos => {
+        return {
+            lat: pos.coords.latitude,
+            lng: pos.coords.longitude
+        }
+    })
+    .then(({lat,lng} )=> onPanTo(lat,lng))
+}
 
-
+function onCopyUrl(){
+    const url =  window.location.href
+    navigator.clipboard.writeText(url)
+}
