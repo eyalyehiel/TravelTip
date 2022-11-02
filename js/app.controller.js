@@ -8,6 +8,7 @@ window.onGetLocs = renderLocs
 window.onGetUserPos = onGetUserPos
 window.onAddLoc = onAddLoc
 window.onDeleteLoc = onDeleteLoc
+window.onSearchLocation = onSearchLocation
 
 function onInit() {
     mapService.initMap()
@@ -76,3 +77,21 @@ function onAddLoc(ev, elForm, lat, lng) {
 }
 
 
+function onSearchLocation(elForm, ev) {
+    ev.preventDefault()
+    const location = elForm.querySelector('input').value
+    if (islatlng(location)) {
+        console.log('is latlng');
+        const { lat, lng } = location.split(',').map(str => str.parseInt())
+
+    }
+    else {
+
+    }
+
+}
+
+function islatlng(location) {
+    const pattern = new RegExp(/^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$/);
+    return pattern.test(location)
+}
