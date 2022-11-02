@@ -6,6 +6,7 @@ window.onAddMarker = onAddMarker
 window.onPanTo = onPanTo
 window.onGetLocs = renderLocs
 window.onGetUserPos = onGetUserPos
+window.onSaveLoc = onSaveLoc
 
 function onInit() {
     mapService.initMap()
@@ -67,3 +68,10 @@ function onDeleteLoc(name){
     deleteLoc(name)
 
 }
+function onSaveLoc(ev, elForm, lat, lng) {
+    ev.preventDefault()
+    const name = elForm.querySelector('input').value
+    locService.addLoc({ lat, lng }, name)
+}
+
+

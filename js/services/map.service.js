@@ -24,25 +24,35 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
 
             console.log('Map!', gMap)
             // Create the initial InfoWindow.
-            let infoWindow = new google.maps.InfoWindow({
-                content: "Click the map to get Lat/Lng!",
-                position: gMap.center,
-            });
-
-            infoWindow.open(gMap);
+            let infoWindow = new google.maps.InfoWindow();
+            infoWindow.setContent(`
+                <h1>Save this new location?</h1>
+                <h2>lat: ${lat.toFixed(3)}, long: ${lng.toFixed(3)}</h2>
+                <form onsubmit="onSaveLoc()">
+                    <label for="name">Name this place</label>
+                    <input type="text">
+                    <button>Save</button>
+                </form> `)
 
             gMap.addListener("click", (mapsMouseEvent) => {
                 infoWindow.close();
                 // Create a new InfoWindow.
+                const { lat, lng } = JSON.parse(JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2))
                 infoWindow = new google.maps.InfoWindow({
-                    content: "Click the map to get Lat/Lng!",
                     position: mapsMouseEvent.latLng,
                 });
+                infoWindow.setContent(`
+                <h1>Save this new location?</h1>
+                <h2>lat: ${lat.toFixed(3)}, long: ${lng.toFixed(3)}</h2>
+                <form onsubmit="onSaveLoc(event, this, ${lat}, ${lng})">
+                    <label for="name">Name this place</label>
+                    <input type="text">
+                    <button>Save</button>
+                </form> 
+                `)
                 infoWindow.open(gMap);
 
-
-                let newLocation = JSON.parse(JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2))
-                locService.addLoc(newLocation)
+                // locService.addLoc({ lat, lng })
             })
 
         })
