@@ -1,8 +1,11 @@
 export const mapService = {
     initMap,
     addMarker,
-    panTo
+    panTo,
 }
+
+import { locService } from './services/loc.service.js'
+
 
 
 // Var that is used throughout this Module (not global)
@@ -20,7 +23,19 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
             })
             console.log('Map!', gMap)
         })
+
+
 }
+
+function onClickLocation() {
+    gMap.addListener("click", (mapsMouseEvent) => {
+        let newLocation = JSON.parse(JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2))
+        console.log(newLocation);
+        locService.saveToLocs(newLocation)
+    }
+}
+
+// Configure the click listener.
 
 function addMarker(loc) {
     var marker = new google.maps.Marker({
