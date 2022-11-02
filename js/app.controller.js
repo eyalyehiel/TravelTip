@@ -57,15 +57,3 @@ function onPanTo() {
     console.log('Panning the Map')
     mapService.panTo(35.6895, 139.6917)
 }
-
-
-// function addMapListeners() {
-//     debugger
-//     const map = mapService.getMap()
-//     map.addListener("click", (mapsMouseEvent) => {
-//         let newLocation = JSON.parse(JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2))
-//         console.log(newLocation);
-//         locService.saveToLocs(newLocation)
-//         renderLocs()
-//     })
-// }

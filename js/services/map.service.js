@@ -10,7 +10,6 @@ import { locService } from './loc.service.js'
 
 // Var that is used throughout this Module (not global)
 var gMap
-
 function initMap(lat = 32.0749831, lng = 34.9120554) {
     console.log('InitMap')
     return _connectGoogleApi()
@@ -21,9 +20,27 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
                 center: { lat, lng },
                 zoom: 15
             })
+
+
             console.log('Map!', gMap)
+            // Create the initial InfoWindow.
+            let infoWindow = new google.maps.InfoWindow({
+                content: "Click the map to get Lat/Lng!",
+                position: gMap.center,
+            });
+
+            infoWindow.open(gMap);
 
             gMap.addListener("click", (mapsMouseEvent) => {
+                infoWindow.close();
+                // Create a new InfoWindow.
+                infoWindow = new google.maps.InfoWindow({
+                    content: "Click the map to get Lat/Lng!",
+                    position: mapsMouseEvent.latLng,
+                });
+                infoWindow.open(gMap);
+
+
                 let newLocation = JSON.parse(JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2))
                 locService.saveToLocs(newLocation)
             })
@@ -32,20 +49,6 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
 
 
 }
-
-<<<<<<< HEAD
-function onClickLocation() {
-    gMap.addListener("click", (mapsMouseEvent) => {
-        let newLocation = JSON.parse(JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2))
-        console.log(newLocation);
-        locService.saveToLocs(newLocation)
-    })
-=======
-function getMap() {
-    return gMap
->>>>>>> 210d14c877d2a083a400fa1d1ad1fb4c0c2dc01c
-}
-
 
 // Configure the click listener.
 
