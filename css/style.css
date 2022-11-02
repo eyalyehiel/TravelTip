@@ -49,7 +49,6 @@ button{
 
 /* Header */
 .main-layout .main-header {
-    /* background-color: #a4c3b2ff; */
     grid-column: span 2;
     display: grid;
     place-items: center;
@@ -129,7 +128,6 @@ button{
 .main-section .map-controller .weather{
     background-color: var(--azure-x-11-web-color);
     box-shadow: 0 0 3px 1px;
-    /* height: 30%; */
     height: 25vh;
     border: 1px solid var(--cambridge-blue);
     padding: 5px;
@@ -144,7 +142,7 @@ button{
     box-shadow: 0 0 3px 1px;
     border: 1px solid var(--cambridge-blue);
     padding: 5px;
-    overflow: scroll;
+    overflow: auto;
 }
 .map-controller .locations .loc{
     display: flex;

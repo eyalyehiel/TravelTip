@@ -38,8 +38,8 @@ function renderLocs() {
                 <h4 class="loc-name">${name}</h4>
                 <p><span class="lat">${lat.toFixed(3)}</span> : <span class="lng">${lng.toFixed(3)}</span></p>
                 </div>
-                <button type="button">Go</button>
-                <button type="button">Delete</button>
+                <button type="button" onclick="onPanTo('${lat}','${lng}')">Go</button>
+                <button type="button" onclick="onDeleteLoc(${name})">Delete</button>
             </div>`
             })
             document.querySelector('.locations').innerHTML = strHtmls.join('')
@@ -57,7 +57,13 @@ function onGetUserPos() {
             console.log('err!!!', err)
         })
 }
-function onPanTo() {
+function onPanTo(lat,lng) {
     console.log('Panning the Map')
-    mapService.panTo(35.6895, 139.6917)
+    mapService.panTo(+lat || 35.6895, +lng || 139.6917)
+}
+
+
+function onDeleteLoc(name){
+    deleteLoc(name)
+
 }

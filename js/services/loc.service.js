@@ -1,6 +1,7 @@
 export const locService = {
     getLocs,
-    addLoc
+    addLoc,
+    deleteLoc
 }
 
 import { storageService } from "./storage.service.js"
@@ -29,4 +30,8 @@ function addLoc(pos) {
     storageService.save(STORAGE_KEY,locs)
 }
 
-
+function deleteLoc(name){
+    locIdx = locs.findIndex(loc => loc.name === name)
+    locs.splice(locIdx,1)
+    storageService.save(STORAGE_KEY,locs)
+}
