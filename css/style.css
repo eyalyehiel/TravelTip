@@ -46,9 +46,44 @@ button{
 /* Main section */
 .main-layout .main-section {
     display: grid;
+    grid-row: .2fr 1fr;
     grid-template-columns: 1fr 1fr;
     padding: 20px;
     gap: 10px;
+}
+
+/* Options */
+.main-layout .main-section .options{
+    grid-column: span 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+.main-section .options .navigate{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.options .navigate .search-input{
+    padding: 5px;
+    border: 1px solid var(--wintergreen-dream);
+    border-radius: 5px;
+    border-right: 0;
+    border-start-end-radius: 0;
+    border-end-end-radius: 0;
+}
+.options .navigate .search-btn {
+    margin-left: -5px;
+    border-left: 0;
+    border-start-start-radius: 0;
+    border-end-start-radius: 0;
+}
+
+.main-section .options .pos-info{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 /* Map */
@@ -59,13 +94,18 @@ button{
 /* Map controller */
 .main-layout .main-section .map-controller {
     display: grid;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 1fr 2fr;
     row-gap: 10px;
 }
-.main-section .map-controller .options{
+.main-section .map-controller .weather{
     border: 1px solid var(--cambridge-blue);
     padding: 5px;
 }
 .main-section .map-controller .info{
+   display: grid;
+   grid-template-rows: 0.2fr 2fr;
+}
+.main-section .map-controller .locations{
     border: 1px solid var(--cambridge-blue);
+    padding: 5px;
 }
