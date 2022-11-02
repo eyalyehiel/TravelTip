@@ -42,7 +42,7 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
 
 
                 let newLocation = JSON.parse(JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2))
-                locService.saveToLocs(newLocation)
+                locService.addLoc(newLocation)
             })
 
         })
