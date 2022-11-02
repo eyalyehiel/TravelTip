@@ -32,7 +32,7 @@ function onClickLocation() {
         let newLocation = JSON.parse(JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2))
         console.log(newLocation);
         locService.saveToLocs(newLocation)
-    }
+    })
 }
 
 // Configure the click listener.
