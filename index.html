@@ -17,7 +17,7 @@
 
             <div class="options">
                 <div class="navigate">
-                    <form>
+                    <form onsubmit="onSearchLocation(this, event)">
                         <input type="search" class="search-input" placeholder="Enter City">
                         <button type="submit" class="search-btn">Go</button>
                     </form>
@@ -40,20 +40,19 @@
                     <div class="locations">
                         <div class="loc">
                             <div>
-<!-- 
+                                <!-- 
                                 <h4 class="loc-name">Loc Name</h4>
                                 <p><span class="lat">222222222</span> : <span class="lng">22222222</span></p>
                             </div>
                             <button type="button">Go</button>
                             <button type="button" onclick="onDeleteLoc()">Delete</button> -->
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
         </section>
 
     </main>
-
     <script type="module" src="js/app.controller.js"></script>
 </body>
 

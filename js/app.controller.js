@@ -11,24 +11,25 @@ window.onAddLoc = onAddLoc
 window.onDeleteLoc = onDeleteLoc
 window.onPanToMyLoc = onPanToMyLoc
 window.onCopyUrl = onCopyUrl
+window.onSearchLocation = onSearchLocation
 
 function onInit() {
     mapService.initMap()
         .then(() => {
             console.log('Map is ready')
         })
-        .then(()=>{
+        .then(() => {
             const urlSearchParams = new URLSearchParams(window.location.search);
             const params = Object.fromEntries(urlSearchParams.entries());
-            console.log(params.lat,params.lng);
+            console.log(params.lat, params.lng);
             onPanTo(params.lat, params.lng)
             weatherService.get(params.lat,params.lng).then(renderWeather)
         })
         .catch(() => console.log('Error: cannot init map'))
-        // const urlSearchParams = new URLSearchParams(window.location.search);
-        // const params = Object.fromEntries(urlSearchParams.entries());
-        // console.log(params.lat,params.lng);
-        // onPanTo(params.lat, params.lng)
+    // const urlSearchParams = new URLSearchParams(window.location.search);
+    // const params = Object.fromEntries(urlSearchParams.entries());
+    // console.log(params.lat,params.lng);
+    // onPanTo(params.lat, params.lng)
 }
 
 // This function provides a Promise API to the callback-based-api of getCurrentPosition
@@ -92,19 +93,44 @@ function onAddLoc(ev, elForm, lat, lng) {
     const name = elForm.querySelector('input').value
     locService.addLoc({ lat, lng }, name)
 }
-function onPanToMyLoc(){
+function onPanToMyLoc() {
     getPosition()
-    .then(pos => {
-        return {
-            lat: pos.coords.latitude,
-            lng: pos.coords.longitude
-        }
-    })
-    .then(({lat,lng} )=> onPanTo(lat,lng))
+        .then(pos => {
+            return {
+                lat: pos.coords.latitude,
+                lng: pos.coords.longitude
+            }
+        })
+        .then(({ lat, lng }) => onPanTo(lat, lng))
+}
+function onSearchLocation(elForm, ev) {
+    ev.preventDefault()
+    const location = elForm.querySelector('input').value
+    if (islatlng(location)) {
+        console.log('is latlng');
+        const arr = location.split(',').map(str => +str)
+        const [lat, lng] = [arr[0], arr[1]]
+        onPanTo(lat, lng);
+    }
+    else {
+        console.log('is address')
+        fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=AIzaSyDJ5CRpSy0V14lOUli9vStS6lCjaSStmNU`)
+            .then(res => res.json())
+            .then(res => {
+                const { lat, lng } = res.results[0].geometry.location
+                onPanTo(lat, lng)
+            })
+    }
+
 }
 
-function onCopyUrl(){
-    const url =  window.location.href
+function islatlng(location) {
+    const pattern = new RegExp(/^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$/);
+    return pattern.test(location)
+}
+
+function onCopyUrl() {
+    const url = window.location.href
     navigator.clipboard.writeText(url)
 }
 
