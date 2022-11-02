@@ -6,7 +6,7 @@ window.onAddMarker = onAddMarker
 window.onPanTo = onPanTo
 window.onGetLocs = renderLocs
 window.onGetUserPos = onGetUserPos
-window.onSaveLoc = onSaveLoc
+window.onAddLoc = onAddLoc
 window.onDeleteLoc = onDeleteLoc
 window.onPanToMyLoc =onPanToMyLoc
 window.onCopyUrl = onCopyUrl
@@ -85,7 +85,7 @@ function onDeleteLoc(name) {
     locService.deleteLoc(name)
 
 }
-function onSaveLoc(ev, elForm, lat, lng) {
+function onAddLoc(ev, elForm, lat, lng) {
     ev.preventDefault()
     const name = elForm.querySelector('input').value
     locService.addLoc({ lat, lng }, name)
