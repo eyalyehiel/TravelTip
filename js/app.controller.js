@@ -8,6 +8,8 @@ window.onGetLocs = renderLocs
 window.onGetUserPos = onGetUserPos
 window.onAddLoc = onAddLoc
 window.onDeleteLoc = onDeleteLoc
+window.onPanToMyLoc = onPanToMyLoc
+window.onCopyUrl = onCopyUrl
 window.onSearchLocation = onSearchLocation
 
 function onInit() {
@@ -15,7 +17,17 @@ function onInit() {
         .then(() => {
             console.log('Map is ready')
         })
+        .then(() => {
+            const urlSearchParams = new URLSearchParams(window.location.search);
+            const params = Object.fromEntries(urlSearchParams.entries());
+            console.log(params.lat, params.lng);
+            onPanTo(params.lat, params.lng)
+        })
         .catch(() => console.log('Error: cannot init map'))
+    // const urlSearchParams = new URLSearchParams(window.location.search);
+    // const params = Object.fromEntries(urlSearchParams.entries());
+    // console.log(params.lat,params.lng);
+    // onPanTo(params.lat, params.lng)
 }
 
 // This function provides a Promise API to the callback-based-api of getCurrentPosition
@@ -63,6 +75,10 @@ function onGetUserPos() {
 function onPanTo(lat, lng) {
     console.log('Panning the Map')
     mapService.panTo(+lat || 35.6895, +lng || 139.6917)
+
+    const queryStringParams = `?lat=${lat}&lng=${lng}`
+    const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + queryStringParams
+    window.history.pushState({ path: newUrl }, '', newUrl)
 }
 
 
@@ -75,8 +91,16 @@ function onAddLoc(ev, elForm, lat, lng) {
     const name = elForm.querySelector('input').value
     locService.addLoc({ lat, lng }, name)
 }
-
-
+function onPanToMyLoc() {
+    getPosition()
+        .then(pos => {
+            return {
+                lat: pos.coords.latitude,
+                lng: pos.coords.longitude
+            }
+        })
+        .then(({ lat, lng }) => onPanTo(lat, lng))
+}
 function onSearchLocation(elForm, ev) {
     ev.preventDefault()
     const location = elForm.querySelector('input').value
@@ -96,4 +120,9 @@ function onSearchLocation(elForm, ev) {
 function islatlng(location) {
     const pattern = new RegExp(/^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$/);
     return pattern.test(location)
+}
+
+function onCopyUrl() {
+    const url = window.location.href
+    navigator.clipboard.writeText(url)
 }
