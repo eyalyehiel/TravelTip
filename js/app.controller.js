@@ -11,7 +11,6 @@ function onInit() {
     mapService.initMap()
         .then(() => {
             console.log('Map is ready')
-            addlisteners()
         })
         .catch(() => console.log('Error: cannot init map'))
 }
@@ -60,10 +59,13 @@ function onPanTo() {
 }
 
 
-
-function addlisteners() {
-    //model
-    onClickLocation()
-    //dom
-    renderLocs()
-}
+// function addMapListeners() {
+//     debugger
+//     const map = mapService.getMap()
+//     map.addListener("click", (mapsMouseEvent) => {
+//         let newLocation = JSON.parse(JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2))
+//         console.log(newLocation);
+//         locService.saveToLocs(newLocation)
+//         renderLocs()
+//     })
+// }

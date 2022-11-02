@@ -18,6 +18,7 @@ function getLocs() {
 }
 
 function saveToLocs(pos) {
+    console.log('saving to locs');
     const { lat, lng } = pos
     const newLoc = {
         name: 'Nice place for a zula',
