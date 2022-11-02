@@ -1,0 +1,38 @@
+:root {
+    --wintergreen-dream: #6b9080ff;
+    --cambridge-blue: #a4c3b2ff;
+    --light-cyan: #cce3deff;
+    --azure-x-11-web-color: #eaf4f4ff;
+    --mint-cream: #f6fff8ff;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+}
+
+.main-layout {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 75px 1fr;
+}
+.main-layout .main-header {
+    background-color: #a4c3b2ff;
+    grid-column: span 2;
+    display: grid;
+    place-items: center;
+}
+
+.main-layout .main-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 20px;
+    gap: 10px;
+}
+.main-layout .main-section .map{
+   order: 1;
+}
+.main-layout .main-section .map-controller {
+    border: 1px solid var(--wintergreen-dream);
+}
