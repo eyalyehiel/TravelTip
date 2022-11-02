@@ -34,16 +34,15 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
                     position: mapsMouseEvent.latLng,
                 });
                 infoWindow.setContent(`
-                <h1>Save this new location?</h1>
-                <form onsubmit="onSaveLoc(event, this, ${lat}, ${lng})">
+                <h1>Add this new location?</h1>
+                <form onsubmit="onAddLoc(event, this, ${lat}, ${lng})">
                     <label for="name"><h3>Name this place:</h3></label>
                     <input type="text">
-                    <button>Save</button>
+                    <button>Add</button>
                 </form> 
                 `)
                 infoWindow.open(gMap);
 
-                // locService.addLoc({ lat, lng })
             })
 
         })

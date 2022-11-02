@@ -30,8 +30,8 @@ function addLoc(pos, name) {
     storageService.save(STORAGE_KEY, locs)
 }
 
-function deleteLoc(name){
-    locIdx = locs.findIndex(loc => loc.name === name)
-    locs.splice(locIdx,1)
-    storageService.save(STORAGE_KEY,locs)
+function deleteLoc(name) {
+    const locIdx = locs.findIndex(loc => loc.name === name)
+    locs.splice(locIdx, 1)
+    storageService.save(STORAGE_KEY, locs)
 }
