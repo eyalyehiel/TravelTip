@@ -111,8 +111,13 @@ function onSearchLocation(elForm, ev) {
         onPanTo(lat, lng);
     }
     else {
-        console.log('is address');
-
+        console.log('is address')
+        fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=AIzaSyDJ5CRpSy0V14lOUli9vStS6lCjaSStmNU`)
+            .then(res => res.json())
+            .then(res => {
+                const { lat, lng } = res.results[0].geometry.location
+                onPanTo(lat, lng)
+            })
     }
 
 }
