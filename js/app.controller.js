@@ -7,6 +7,7 @@ window.onPanTo = onPanTo
 window.onGetLocs = renderLocs
 window.onGetUserPos = onGetUserPos
 window.onSaveLoc = onSaveLoc
+window.onDeleteLoc = onDeleteLoc
 
 function onInit() {
     mapService.initMap()
@@ -58,14 +59,14 @@ function onGetUserPos() {
             console.log('err!!!', err)
         })
 }
-function onPanTo(lat,lng) {
+function onPanTo(lat, lng) {
     console.log('Panning the Map')
     mapService.panTo(+lat || 35.6895, +lng || 139.6917)
 }
 
 
-function onDeleteLoc(name){
-    deleteLoc(name)
+function onDeleteLoc(name) {
+    locService.deleteLoc(name)
 
 }
 function onSaveLoc(ev, elForm, lat, lng) {
