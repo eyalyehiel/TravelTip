@@ -1,6 +1,6 @@
 import { locService } from './services/loc.service.js'
 import { mapService } from './services/map.service.js'
-import {weatherService} from './services/weather.service.js'
+import { weatherService } from './services/weather.service.js'
 
 window.onload = onInit
 window.onAddMarker = onAddMarker
@@ -23,7 +23,7 @@ function onInit() {
             const params = Object.fromEntries(urlSearchParams.entries());
             console.log(params.lat, params.lng);
             onPanTo(params.lat, params.lng)
-            weatherService.get(params.lat,params.lng).then(renderWeather)
+            weatherService.get(params.lat, params.lng).then(renderWeather)
         })
         .catch(() => console.log('Error: cannot init map'))
     // const urlSearchParams = new URLSearchParams(window.location.search);
@@ -69,11 +69,9 @@ function renderLocs() {
 function onGetUserPos() {
     getPosition()
         .then(pos => {
-            // console.log('User position is:', pos.coords)
-            // document.querySelector('.user-pos').innerText =
-            //     `Latitude: ${pos.coords.latitude} - Longitude: ${pos.coords.longitude}`
-            const { longitude, latitude } = pos.coords
-            onPanTo(latitude, longitude)
+            console.log('User position is:', pos.coords)
+            document.querySelector('.user-pos').innerText =
+                `Latitude: ${pos.coords.latitude} - Longitude: ${pos.coords.longitude}`
         })
         .catch(err => {
             console.log('err!!!', err)
@@ -86,6 +84,7 @@ function onPanTo(lat, lng) {
     const queryStringParams = `?lat=${lat}&lng=${lng}`
     const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + queryStringParams
     window.history.pushState({ path: newUrl }, '', newUrl)
+    weatherService.get(lat, lng).then(renderWeather)
 }
 
 
@@ -140,11 +139,11 @@ function onCopyUrl() {
     navigator.clipboard.writeText(url)
 }
 
-function renderWeather(weatherInfo){
+function renderWeather(weatherInfo) {
     console.log(weatherInfo);
     const strHtmls = `
     <h2 class="place">${weatherInfo.name + ' ' + weatherInfo.country}</h2>
-    <h4 class="temp">${weatherInfo.temp - - 273,15} *</h4>
+    <h4 class="temp">${weatherInfo.temp - - 273, 15} *</h4>
     `
     document.querySelector('.weather').innerHTML = strHtmls
 }
