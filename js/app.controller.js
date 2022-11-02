@@ -1,5 +1,6 @@
 import { locService } from './services/loc.service.js'
 import { mapService } from './services/map.service.js'
+import {weatherService} from './services/weather.service.js'
 
 window.onload = onInit
 window.onAddMarker = onAddMarker
@@ -22,6 +23,7 @@ function onInit() {
             const params = Object.fromEntries(urlSearchParams.entries());
             console.log(params.lat, params.lng);
             onPanTo(params.lat, params.lng)
+            weatherService.get(params.lat,params.lng).then(renderWeather)
         })
         .catch(() => console.log('Error: cannot init map'))
     // const urlSearchParams = new URLSearchParams(window.location.search);
@@ -136,4 +138,13 @@ function islatlng(location) {
 function onCopyUrl() {
     const url = window.location.href
     navigator.clipboard.writeText(url)
+}
+
+function renderWeather(weatherInfo){
+    console.log(weatherInfo);
+    const strHtmls = `
+    <h2 class="place">${weatherInfo.name + ' ' + weatherInfo.country}</h2>
+    <h4 class="temp">${weatherInfo.temp - - 273,15} *</h4>
+    `
+    document.querySelector('.weather').innerHTML = strHtmls
 }
