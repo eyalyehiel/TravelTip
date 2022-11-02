@@ -131,6 +131,8 @@ button{
     height: 25vh;
     border: 1px solid var(--cambridge-blue);
     padding: 5px;
+    display: grid;
+    place-items: center;
 }
 .main-section .map-controller .info{
    display: grid;
