@@ -82,10 +82,12 @@ function onSearchLocation(elForm, ev) {
     const location = elForm.querySelector('input').value
     if (islatlng(location)) {
         console.log('is latlng');
-        const { lat, lng } = location.split(',').map(str => str.parseInt())
-
+        const arr = location.split(',').map(str => +str)
+        const [lat, lng] = [arr[0], arr[1]]
+        onPanTo(lat, lng);
     }
     else {
+        console.log('is address');
 
     }
 
