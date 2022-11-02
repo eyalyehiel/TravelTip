@@ -37,8 +37,8 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
                 <h1>Add this new location?</h1>
                 <form onsubmit="onAddLoc(event, this, ${lat}, ${lng})">
                     <label for="name"><h3>Name this place:</h3></label>
-                    <input type="text">
-                    <button>Add</button>
+                    <input class="search-input" type="text">
+                    <button class="search-btn">Add</button>
                 </form> 
                 `)
                 infoWindow.open(gMap);
@@ -53,11 +53,15 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
 
 // Configure the click listener.
 
-function addMarker(loc) {
+function addMarker() {
+    const image = {
+        url: '../icons/marker.png',
+    };
     var marker = new google.maps.Marker({
-        position: loc,
+        position: gMap.center,
         map: gMap,
-        title: 'Hello World!'
+        title: 'Hello World!',
+        icon: image
     })
     return marker
 }

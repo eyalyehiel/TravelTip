@@ -34,6 +34,7 @@ button{
     border: 1px solid var(--wintergreen-dream);
     padding: 5px;
     border-radius: 5px;
+    cursor: pointer;
 }
 
 
@@ -86,7 +87,7 @@ button{
     box-shadow: 0 0 3px 1px;
 }
 
-.options .navigate .search-input{
+.search-input{
     padding: 5px;
     border: 1px solid var(--wintergreen-dream);
     border-radius: 5px;
@@ -94,7 +95,7 @@ button{
     border-start-end-radius: 0;
     border-end-end-radius: 0;
 }
-.options .navigate .search-btn {
+.search-btn {
     margin-left: -5px;
     border-left: 0;
     border-start-start-radius: 0;
@@ -141,9 +142,10 @@ button{
     background-color: var(--azure-x-11-web-color);
     box-shadow: 0 0 3px 1px;
     border: 1px solid var(--cambridge-blue);
-    padding: 5px;
     overflow: auto;
 }
+
+
 .map-controller .locations .loc{
     display: flex;
     align-items: center;
@@ -152,5 +154,44 @@ button{
 .map-controller .locations .loc div{
     display: flex;
     flex-direction: column;
+    
+}
+.map-controller .locations .loc:nth-child(odd){
+    background-color: #385170;
+    color: #fcfefe;
+}
+
+.map-controller .locations .loc:nth-child(even){
+    background-color: #fcfefe;
+    color: #385170;
+}
+
+.location-options{
+}
+
+.location-options button{
+    font-size: 1.3em;
+    padding: 0.35em;
+    border: none;
+    transition: 0.2s;
+}
+
+.location-options button:hover{
+    background-color: #e3e3e350;
+}
+
+.btn-goto{
+    background-color: #a2a8d3;
+    color: #385170;
+}
+
+.btn-delete{
+    background-color: #f95959;
+    color: #233142;
+}
+
+/* API */
+.gm-style .gm-style-iw-c{
+    padding: 2em;
     
 }

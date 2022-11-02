@@ -28,6 +28,7 @@ function onInit() {
     // const params = Object.fromEntries(urlSearchParams.entries());
     // console.log(params.lat,params.lng);
     // onPanTo(params.lat, params.lng)
+    renderLocs()
 }
 
 // This function provides a Promise API to the callback-based-api of getCurrentPosition
@@ -40,7 +41,7 @@ function getPosition() {
 
 function onAddMarker() {
     console.log('Adding a marker')
-    mapService.addMarker({ lat: 32.0749831, lng: 34.9120554 })
+    mapService.addMarker()
 }
 
 function renderLocs() {
@@ -50,11 +51,13 @@ function renderLocs() {
             let strHtmls = locs.map(({ name, lat, lng }) => {
                 return `<div class="loc">
                 <div>
-                <h4 class="loc-name">${name}</h4>
+                <h3 class="loc-name">${name}</h3>
                 <p><span class="lat">${lat.toFixed(3)}</span> : <span class="lng">${lng.toFixed(3)}</span></p>
                 </div>
-                <button type="button" onclick="onPanTo('${lat}','${lng}')">Go</button>
-                <button type="button" onclick="onDeleteLoc('${name}')">Delete</button>
+                <div class="location-options">
+                    <button type="button" class="btn-goto" onclick="onPanTo('${lat}','${lng}')">Go</button>
+                    <button type="button" class="btn-delete" onclick="onDeleteLoc('${name}')">Delete</button>
+                </div>
             </div>`
             })
             document.querySelector('.locations').innerHTML = strHtmls.join('')
@@ -64,9 +67,11 @@ function renderLocs() {
 function onGetUserPos() {
     getPosition()
         .then(pos => {
-            console.log('User position is:', pos.coords)
-            document.querySelector('.user-pos').innerText =
-                `Latitude: ${pos.coords.latitude} - Longitude: ${pos.coords.longitude}`
+            // console.log('User position is:', pos.coords)
+            // document.querySelector('.user-pos').innerText =
+            //     `Latitude: ${pos.coords.latitude} - Longitude: ${pos.coords.longitude}`
+            const { longitude, latitude } = pos.coords
+            onPanTo(latitude, longitude)
         })
         .catch(err => {
             console.log('err!!!', err)
@@ -84,13 +89,16 @@ function onPanTo(lat, lng) {
 
 function onDeleteLoc(name) {
     locService.deleteLoc(name)
-
+    renderLocs()
 }
+
 function onAddLoc(ev, elForm, lat, lng) {
     ev.preventDefault()
     const name = elForm.querySelector('input').value
     locService.addLoc({ lat, lng }, name)
+    renderLocs()
 }
+
 function onPanToMyLoc() {
     getPosition()
         .then(pos => {
@@ -105,13 +113,11 @@ function onSearchLocation(elForm, ev) {
     ev.preventDefault()
     const location = elForm.querySelector('input').value
     if (islatlng(location)) {
-        console.log('is latlng');
         const arr = location.split(',').map(str => +str)
         const [lat, lng] = [arr[0], arr[1]]
         onPanTo(lat, lng);
     }
     else {
-        console.log('is address')
         fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=AIzaSyDJ5CRpSy0V14lOUli9vStS6lCjaSStmNU`)
             .then(res => res.json())
             .then(res => {

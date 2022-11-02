@@ -14,7 +14,6 @@
             <h1>TravelTip Starter</h1>
         </header>
         <section class="main-section">
-
             <div class="options">
                 <div class="navigate">
                     <form onsubmit="onSearchLocation(this, event)">
@@ -32,29 +31,29 @@
             <div class="map-controller">
                 <div class="weather">
 
-                    <button onclick="onAddMarker()" class="btn-add-marker">Add Marker Speific Location</button>
-                    <button onclick="onGetUserPos()" class="btn-user-pos">Get User Position</button>
-                    <button onclick="onGetLocs()" class="btn-get-locs">Get Locations</button>
-                    <button onclick="onPanTo()" class="btn-pan">Pan Map to Tokyo</button>
+                    <button onclick="onAddMarker()" class="btn-add-marker">Mark this location</button>
+                    <button onclick="onGetUserPos()" class="btn-user-pos">My location</button>
+                    <!-- <button onclick="onGetLocs()" class="btn-get-locs">Get Locations</button> -->
+                    <!-- <button onclick="onPanTo()" class="btn-pan">Pan Map to Tokyo</button> -->
 
-                    <p>You are at: <span class="user-pos"></span></p>
+                    <!-- <p>You are at: <span class="user-pos"></span></p> -->
                 </div>
                 <div class="info">
 
                     <h4>Locations:</h4>
                     <div class="locations">
-                        <div class="loc">
+                        <!-- <div class="loc">
                             <div>
-                                <!-- 
+                                
                                 <h4 class="loc-name">Loc Name</h4>
                                 <p><span class="lat">222222222</span> : <span class="lng">22222222</span></p>
                             </div>
                             <button type="button">Go</button>
-                            <button type="button" onclick="onDeleteLoc()">Delete</button> -->
-                            </div>
-                        </div>
+                            <button type="button" onclick="onDeleteLoc()">Delete</button>
+                            </div> -->
                     </div>
                 </div>
+            </div>
         </section>
 
     </main>
