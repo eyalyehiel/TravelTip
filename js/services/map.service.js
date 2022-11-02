@@ -4,7 +4,7 @@ export const mapService = {
     panTo,
 }
 
-import { locService } from './services/loc.service.js'
+import { locService } from './loc.service.js'
 
 
 
@@ -22,18 +22,30 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
                 zoom: 15
             })
             console.log('Map!', gMap)
+
+            gMap.addListener("click", (mapsMouseEvent) => {
+                let newLocation = JSON.parse(JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2))
+                locService.saveToLocs(newLocation)
+            })
+
         })
 
 
 }
 
+<<<<<<< HEAD
 function onClickLocation() {
     gMap.addListener("click", (mapsMouseEvent) => {
         let newLocation = JSON.parse(JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2))
         console.log(newLocation);
         locService.saveToLocs(newLocation)
     })
+=======
+function getMap() {
+    return gMap
+>>>>>>> 210d14c877d2a083a400fa1d1ad1fb4c0c2dc01c
 }
+
 
 // Configure the click listener.
 
