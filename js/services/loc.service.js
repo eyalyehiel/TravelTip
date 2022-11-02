@@ -1,13 +1,13 @@
 export const locService = {
     getLocs,
-    saveToLocs
+    addLoc
 }
 
+import { storageService } from "./storage.service.js"
 
-const locs = [
-    { name: 'Greatplace', lat: 32.047104, lng: 34.832384 },
-    { name: 'Neveragain', lat: 32.047201, lng: 34.832581 }
-]
+const STORAGE_KEY = 'locsDB'
+
+const locs = storageService.load(STORAGE_KEY) || []
 
 function getLocs() {
     return new Promise((resolve, reject) => {
@@ -17,7 +17,7 @@ function getLocs() {
     })
 }
 
-function saveToLocs(pos) {
+function addLoc(pos) {
     console.log('saving to locs');
     const { lat, lng } = pos
     const newLoc = {
@@ -26,6 +26,7 @@ function saveToLocs(pos) {
         lng
     }
     locs.unshift(newLoc)
+    storageService.save(STORAGE_KEY,locs)
 }
 
 
