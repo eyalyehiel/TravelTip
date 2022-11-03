@@ -21,9 +21,10 @@ function onInit() {
         .then(() => {
             const urlSearchParams = new URLSearchParams(window.location.search);
             const params = Object.fromEntries(urlSearchParams.entries());
-            console.log(params.lat, params.lng);
-            onPanTo(params.lat, params.lng)
-            weatherService.get(params.lat, params.lng).then(renderWeather)
+            console.log(params.lat, params.lng)
+            const { lat, lng } = params
+            onPanTo(lat || 32.1234, lng || 32.1234)
+            weatherService.get(lat || 32.1234, lng || 32.1234).then(renderWeather)
         })
         .catch(() => console.log('Error: cannot init map'))
     // const urlSearchParams = new URLSearchParams(window.location.search);
@@ -79,7 +80,7 @@ function onGetUserPos() {
 }
 function onPanTo(lat, lng) {
     console.log('Panning the Map')
-    mapService.panTo(+lat || 35.6895, +lng || 139.6917)
+    mapService.panTo(+lat, +lng)
 
     const queryStringParams = `?lat=${lat}&lng=${lng}`
     const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + queryStringParams
@@ -141,8 +142,6 @@ function onCopyUrl() {
 
 function renderWeather(weatherInfo) {
     console.log(weatherInfo);
-    debugger
-
     const strHtmls = `
     <h2 class="place">${weatherInfo.name + ' ' + weatherInfo.country}</h2>
     <h4 class="temp">Currently feels like: ${weatherInfo.temp} ℃</h4>
