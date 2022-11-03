@@ -23,8 +23,8 @@ function onInit() {
             const params = Object.fromEntries(urlSearchParams.entries());
             console.log(params.lat, params.lng)
             const { lat, lng } = params
-            onPanTo(lat || 32.1234, lng || 32.1234)
-            weatherService.get(lat || 32.1234, lng || 32.1234).then(renderWeather)
+            onPanTo(lat || 6.2476376, lng || 75.5658)
+            weatherService.get(lat || 6.2476376, lng || 75.5658).then(renderWeather)
         })
         .catch(() => console.log('Error: cannot init map'))
     // const urlSearchParams = new URLSearchParams(window.location.search);
